@@ -15,7 +15,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --keyword) KEYWORD="$2"; shift 2 ;;
     --asin) ASIN="$2"; shift 2 ;;
-    --marketplace) MARKETPLACE="${2^^}"; shift 2 ;;
+    --marketplace) MARKETPLACE=$(echo "$2" | tr '[:lower:]' '[:upper:]'); shift 2 ;;
     --month) MONTH="$2"; shift 2 ;;
     --size) SIZE="$2"; shift 2 ;;
     --output) OUTPUT_FILE="$2"; shift 2 ;;
@@ -73,7 +73,7 @@ KEYWORD_DATA="{}"
 
 # 1. 通过关键词拉取产品数据
 if [[ -n "$KEYWORD" ]]; then
-  echo "🔍 拉取产品数据（关键词: $KEYWORD, 市场: $MARKETPLACE）..." >&2
+  echo "🔍 拉取产品数据 (关键词: ${KEYWORD}, 市场: ${MARKETPLACE})..." >&2
 
   # 构建 product/research 请求
   PRODUCT_BODY=$(python3 -c "
@@ -92,6 +92,19 @@ print(json.dumps(body))
 
   PRODUCT_RESP=$(api_post "/v1/product/research" "$PRODUCT_BODY" 2>/dev/null || echo '{"code":"ERROR","data":{}}')
 
+  # 显示 API 错误信息（如果有）
+  echo "$PRODUCT_RESP" | python3 -c "
+import sys, json
+try:
+    r = json.load(sys.stdin)
+    if r.get('code') != 'OK':
+        code = r.get('code', 'UNKNOWN')
+        msg = r.get('message', '未知')
+        hint = ' (账户无权限，请检查 open.sellersprite.com 订阅套餐)' if 'UNAUTHORIZED' in code else ''
+        print(f'   ⚠️  API错误 [{code}]: {msg}{hint}', file=sys.stderr)
+except: pass
+" 2>&1 >&2 || true
+
   PRODUCTS_JSON=$(echo "$PRODUCT_RESP" | python3 -c "
 import sys, json
 try:
@@ -101,10 +114,8 @@ try:
         print(json.dumps(items, ensure_ascii=False))
     else:
         print('[]')
-        import sys; print(f'API错误: {r.get(\"message\", \"未知\")}', file=sys.stderr)
-except Exception as e:
+except:
     print('[]')
-    print(f'解析错误: {e}', file=sys.stderr)
 " 2>/dev/null || echo "[]")
 
   P_COUNT=$(echo "$PRODUCTS_JSON" | python3 -c "import sys,json; print(len(json.load(sys.stdin)))" 2>/dev/null || echo "0")
@@ -147,7 +158,7 @@ except:
 
 # 3. 通过 ASIN 查竞品
 elif [[ -n "$ASIN" ]]; then
-  echo "🔍 查询 ASIN 竞品市场（$ASIN）..." >&2
+  echo "🔍 查询 ASIN 竞品市场 (${ASIN})..." >&2
 
   # ASIN 详情
   ASIN_RESP=$(api_get "/v1/asin/${MARKETPLACE}/${ASIN}" 2>/dev/null || echo '{"code":"ERROR"}')

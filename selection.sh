@@ -59,7 +59,7 @@ while [[ $# -gt 0 ]]; do
     --help|-h) usage ;;
     --keyword) KEYWORD="$2"; shift 2 ;;
     --asin) ASIN="$2"; shift 2 ;;
-    --marketplace) MARKETPLACE="${2^^}"; shift 2 ;;
+    --marketplace) MARKETPLACE=$(echo "$2" | tr '[:lower:]' '[:upper:]'); shift 2 ;;
     --month) MONTH="$2"; shift 2 ;;
     --size) SIZE="$2"; shift 2 ;;
     --output) OUTPUT_FILE="$2"; shift 2 ;;
