@@ -2,7 +2,6 @@
 name: sellersprite-product-research
 description: "卖家精灵选品研究 Skill — 基于卖家精灵 API，输入关键词或品类，自动拉取市场数据并 AI 分析，输出选品机会报告：蓝海指数、竞争态势、推荐切入点、风险预警。Triggers: 选品, product research, 卖家精灵, sellersprite, 选产品, 竞品分析, 蓝海市场, 亚马逊选品, amazon product research, 市场分析"
 allowed-tools: Bash
-license: MIT
 metadata:
   openclaw:
     homepage: https://github.com/mguozhen/sellersprite-product-research
