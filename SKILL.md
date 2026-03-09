@@ -1,7 +1,11 @@
 ---
-name: sellersprite-product-selection
-description: "卖家精灵选品 Skill — 基于卖家精灵 API，输入关键词或品类，自动拉取市场数据并 AI 分析，输出选品机会报告：蓝海指数、竞争态势、推荐切入点、风险预警。Triggers: 选品, product research, 卖家精灵, sellersprite, 选产品, 竞品分析, 蓝海市场, 亚马逊选品, amazon product selection, 市场分析"
+name: sellersprite-product-research
+description: "卖家精灵选品研究 Skill — 基于卖家精灵 API，输入关键词或品类，自动拉取市场数据并 AI 分析，输出选品机会报告：蓝海指数、竞争态势、推荐切入点、风险预警。Triggers: 选品, product research, 卖家精灵, sellersprite, 选产品, 竞品分析, 蓝海市场, 亚马逊选品, amazon product research, 市场分析"
 allowed-tools: Bash
+license: MIT
+metadata:
+  openclaw:
+    homepage: https://github.com/mguozhen/sellersprite-product-research
 ---
 
 # 卖家精灵选品助手
@@ -28,19 +32,19 @@ which openclaw
 
 ```bash
 # 基础选品分析（关键词）
-bash ~/.claude/skills/sellersprite-product-selection/selection.sh --keyword "wireless earbuds"
+bash ~/.claude/skills/sellersprite-product-research/selection.sh --keyword "wireless earbuds"
 
 # 指定市场（默认 US）
-bash ~/.claude/skills/sellersprite-product-selection/selection.sh --keyword "yoga mat" --marketplace UK
+bash ~/.claude/skills/sellersprite-product-research/selection.sh --keyword "yoga mat" --marketplace UK
 
 # 指定月份
-bash ~/.claude/skills/sellersprite-product-selection/selection.sh --keyword "phone case" --month 202501
+bash ~/.claude/skills/sellersprite-product-research/selection.sh --keyword "phone case" --month 202501
 
 # 分析竞品（通过 ASIN）
-bash ~/.claude/skills/sellersprite-product-selection/selection.sh --asin B08N5WRWNW --marketplace US
+bash ~/.claude/skills/sellersprite-product-research/selection.sh --asin B08N5WRWNW --marketplace US
 
 # 保存报告
-bash ~/.claude/skills/sellersprite-product-selection/selection.sh --keyword "LED strip" --output report.md
+bash ~/.claude/skills/sellersprite-product-research/selection.sh --keyword "LED strip" --output report.md
 ```
 
 ## 输出示例 / Output Example

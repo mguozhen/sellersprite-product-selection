@@ -1,4 +1,4 @@
-# sellersprite-product-selection
+# sellersprite-product-research
 
 AI-powered Amazon product selection skill for [Claude Code](https://claude.ai/code) and [OpenClaw](https://openclaw.ai). Input a keyword or ASIN, get a deep bilingual product opportunity report — powered by SellerSprite's real market data.
 
@@ -21,12 +21,12 @@ Calls the SellerSprite Open API to pull live Amazon market data and runs it thro
 ```bash
 mkdir -p ~/.claude/skills
 cd ~/.claude/skills
-git clone https://github.com/mguozhen/sellersprite-product-selection.git sellersprite-product-selection
+git clone https://github.com/mguozhen/sellersprite-product-research.git sellersprite-product-research
 ```
 
 ### OpenClaw
 ```bash
-clawhub install sellersprite-product-selection
+clawhub install sellersprite-product-research
 ```
 
 ## Setup
@@ -53,19 +53,19 @@ clawhub install sellersprite-product-selection
 ### Command line
 ```bash
 # Keyword research (US market, default)
-bash ~/.claude/skills/sellersprite-product-selection/selection.sh --keyword "wireless earbuds"
+bash ~/.claude/skills/sellersprite-product-research/selection.sh --keyword "wireless earbuds"
 
 # Specify marketplace
-bash ~/.claude/skills/sellersprite-product-selection/selection.sh --keyword "yoga mat" --marketplace UK
+bash ~/.claude/skills/sellersprite-product-research/selection.sh --keyword "yoga mat" --marketplace UK
 
 # Competitor analysis via ASIN
-bash ~/.claude/skills/sellersprite-product-selection/selection.sh --asin B08N5WRWNW
+bash ~/.claude/skills/sellersprite-product-research/selection.sh --asin B08N5WRWNW
 
 # Save report to file
-bash ~/.claude/skills/sellersprite-product-selection/selection.sh --keyword "LED strip" --output report.md
+bash ~/.claude/skills/sellersprite-product-research/selection.sh --keyword "LED strip" --output report.md
 
 # Specify month
-bash ~/.claude/skills/sellersprite-product-selection/selection.sh --keyword "phone case" --month 202502
+bash ~/.claude/skills/sellersprite-product-research/selection.sh --keyword "phone case" --month 202502
 ```
 
 ## Sample Output
@@ -134,7 +134,7 @@ bash ~/.claude/skills/sellersprite-product-selection/selection.sh --keyword "pho
 ## File Structure
 
 ```
-sellersprite-product-selection/
+sellersprite-product-research/
 ├── SKILL.md        # AI skill metadata & trigger description
 ├── selection.sh    # Main entry — arg parsing & orchestration
 ├── fetch.sh        # SellerSprite API calls & data processing
